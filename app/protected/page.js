@@ -2,7 +2,7 @@
 
 export const dynamic = "force-dynamic";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import Notification from "../components/Notification";
@@ -10,6 +10,23 @@ import Notification from "../components/Notification";
 const REDIRECT_DELAY_MS = 2000;
 
 export default function ProtectedPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-zinc-100 px-6 py-12 text-zinc-900">
+          <div className="mx-auto w-full max-w-3xl rounded-3xl border border-zinc-200 bg-white p-8 shadow-sm">
+            <h1 className="text-2xl font-semibold">Protected</h1>
+            <p className="mt-2 text-sm text-zinc-500">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <ProtectedContent />
+    </Suspense>
+  );
+}
+
+function ProtectedContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const apiKey = useMemo(
