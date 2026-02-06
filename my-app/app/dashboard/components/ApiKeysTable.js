@@ -54,8 +54,8 @@ export default function ApiKeysTable({
         </button>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-2xl border border-zinc-200">
-        <div className="grid grid-cols-[1.2fr_0.5fr_1.2fr_0.6fr] gap-4 bg-zinc-50 px-5 py-3 text-xs font-semibold text-zinc-500">
+      <div className="mt-6 overflow-x-auto rounded-2xl border border-zinc-200">
+        <div className="min-w-[640px] grid grid-cols-[1.2fr_0.5fr_1.2fr_0.6fr] gap-4 bg-zinc-50 px-5 py-3 text-xs font-semibold text-zinc-500">
           <span>Name</span>
           <span>Usage</span>
           <span>Key</span>
@@ -73,7 +73,7 @@ export default function ApiKeysTable({
 
         {pagedKeys.map((item) => (
           <div
-            className="grid grid-cols-[1.2fr_0.5fr_1.2fr_0.6fr] items-center gap-4 border-t border-zinc-200 px-5 py-3 text-sm"
+            className="min-w-[640px] grid grid-cols-[1.2fr_0.5fr_1.2fr_0.6fr] items-center gap-4 border-t border-zinc-200 px-5 py-3 text-sm"
             key={item.id || item.value}
           >
             <span className="text-zinc-700">{item.name}</span>

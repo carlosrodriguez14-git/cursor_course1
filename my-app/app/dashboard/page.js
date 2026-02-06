@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import ApiKeysTable from "./components/ApiKeysTable";
@@ -14,7 +14,7 @@ import maskKey from "./utils/maskKey";
 
 export default function DashboardPage() {
   const { data: session } = useSession();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const {
     apiKeys,
     isLoading,
@@ -57,10 +57,20 @@ export default function DashboardPage() {
     .map((word) => word[0]?.toUpperCase())
     .join("");
 
+  useEffect(() => {
+    const updateSidebarState = () => {
+      setIsSidebarOpen(window.innerWidth >= 1024);
+    };
+
+    updateSidebarState();
+    window.addEventListener("resize", updateSidebarState);
+    return () => window.removeEventListener("resize", updateSidebarState);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-zinc-100 px-6 py-10 text-zinc-900">
-      <div className="mx-auto flex w-full max-w-6xl gap-6">
-        <div className="fixed right-6 top-6 z-50 flex items-center gap-3">
+    <div className="min-h-screen bg-zinc-100 px-4 py-6 text-zinc-900 sm:px-6 sm:py-10">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:flex-row">
+        <div className="fixed right-4 top-4 z-50 flex items-center justify-between gap-3 sm:right-6 sm:top-6">
           <div
             className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white shadow-sm"
             aria-label={`Signed in as ${userLabel}`}
@@ -89,10 +99,10 @@ export default function DashboardPage() {
             type="button"
             onClick={() => setIsSidebarOpen((prev) => !prev)}
           >
-            {isSidebarOpen ? "Hide" : "Show"}
+            {isSidebarOpen ? "Hide menu" : "Show menu"}
           </button>
         </div>
-        <Sidebar isOpen={isSidebarOpen} />
+        <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
         <main className="flex w-full flex-1 flex-col gap-6">
           <PlanCard />
           <ApiKeysTable
