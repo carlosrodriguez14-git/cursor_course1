@@ -23,11 +23,13 @@ export default function Sidebar({ isOpen, onClose }) {
             <div className="flex items-center justify-between gap-2">
               <div className="text-lg font-semibold text-zinc-900">Carlos AI</div>
               <button
-                className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-xs font-semibold text-zinc-600 transition hover:bg-zinc-100"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-purple-500 text-sm font-semibold text-white transition hover:bg-purple-600"
                 type="button"
                 onClick={onClose}
+                aria-label="Close menu"
+                title="Close menu"
               >
-                Close
+                X
               </button>
             </div>
             <nav className="mt-6 flex flex-col gap-3 text-sm text-zinc-600">

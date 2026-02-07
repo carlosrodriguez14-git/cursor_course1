@@ -70,7 +70,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-zinc-100 px-4 py-6 text-zinc-900 sm:px-6 sm:py-10">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:flex-row">
-        <div className="fixed right-4 top-4 z-50 flex items-center justify-between gap-3 sm:right-6 sm:top-6">
+        <div className="fixed left-4 top-4 z-50 flex items-center justify-between gap-3 sm:left-6 sm:top-6">
           <div
             className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white shadow-sm"
             aria-label={`Signed in as ${userLabel}`}
@@ -95,11 +95,17 @@ export default function DashboardPage() {
             />
           </div>
           <button
-            className="rounded-full border border-zinc-200 bg-white/80 px-4 py-1 text-xs font-semibold text-zinc-700 shadow-sm backdrop-blur transition hover:bg-white"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-purple-500 shadow-sm transition hover:bg-purple-600"
             type="button"
             onClick={() => setIsSidebarOpen((prev) => !prev)}
+            aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
+            title={isSidebarOpen ? "Close menu" : "Open menu"}
           >
-            {isSidebarOpen ? "Hide menu" : "Show menu"}
+            <span className="flex flex-col items-center justify-center gap-1">
+              <span className="h-0.5 w-4 rounded-full bg-white" />
+              <span className="h-0.5 w-4 rounded-full bg-white" />
+              <span className="h-0.5 w-4 rounded-full bg-white" />
+            </span>
           </button>
         </div>
         <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
